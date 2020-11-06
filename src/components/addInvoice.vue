@@ -34,7 +34,7 @@
     </v-menu>
     <v-text-field v-model="invoiceForm.amount" label="amount" class="fields"></v-text-field>
     <v-card-actions>
-      <v-btn color="deep-purple lighten-2" text @click="addInvoice()">
+      <v-btn color="deep-purple lighten-2" text @click="addInvoice()" :disabled="!isFormValid" >
         Submit
       </v-btn>
     </v-card-actions>
@@ -42,9 +42,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 
 const invoiceFormEmpty = {
-    number: '',
+    number: 0,
     description: '',
     date: null,
     amount: 0
@@ -64,6 +65,14 @@ export default {
   watch: {
     menu(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+    }
+  },
+  computed: {
+    ...mapState({
+          invoices: 'invoices'
+      }),
+    isFormValid(){
+      return this.invoices.filter( i => i.number == this.invoiceForm.number ).length === 0;
     }
   },
   methods: {

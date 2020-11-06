@@ -14,18 +14,31 @@ export default new Vuex.Store({
     ]
   },
   getters: {
-    // getList(state){
-    //   return state.invoices;
-    // }
+    getInvoicesNumbers(state){
+      console.log(state.invoices);
+      return state.invoices;
+    }
   },
   mutations: {
-    NEW_INVOICE( state, invoiceItem){
+    NEW_INVOICE( state, invoiceItem ){
+      state.invoices.push(invoiceItem);
+    },
+    DELETE_INVOICE( state, invoiceItem){
+      state.invoices.splice( invoiceItem, 1 );
+    },
+    DUPLICATE_INVOICE( state, invoiceItem ){
       state.invoices.push(invoiceItem);
     }
   },
   actions: {
-    addNewInvoice({commit}, invoiceItem){
+    addNewInvoice({commit}, invoiceItem ){
       commit('NEW_INVOICE', invoiceItem);
+    },
+    deleteInvoiceItem( {commit}, invoiceItem ){
+      commit('DELETE_INVOICE', invoiceItem);
+    },
+    duplicateInvoiceItem({commit}, invoiceItem ){
+      commit('DUPLICATE_INVOICE', invoiceItem );
     }
   },
   modules: {}
