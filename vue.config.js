@@ -1,5 +1,7 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
-  publicPath: '/task3vue/'
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/task3vue/'
+  : '/'
 };
 
