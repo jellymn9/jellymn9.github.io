@@ -7,7 +7,10 @@
             v-model="search"
             @keydown="searchForInvoice()"
         ></v-text-field>
-        <v-list dense v-if="!matchExists">
+        <v-list dense v-if="!matchExists"
+        style="max-height: 400px"
+        class="overflow-y-auto"
+        >
             <v-list-item
             v-for="(invoice, i) in invoices"
             :key="i"
@@ -80,29 +83,23 @@ export default {
           this.$store.dispatch('deleteInvoiceItem', invoiceItem );
         },
         duplicateInvoice(i){
-            // console.log("invoiceeees", this.invoices);
             this.duplicateId = this.invoices.length;
             while( this.getInvoicesNumbers.filter( p => p.number === this.duplicateId ).length !== 0 ){
                 this.duplicateId += 1;
             }
-            // console.log("blabla222");
             const duplicate = {...this.invoices[i]};
             duplicate.number = this.duplicateId;
-            // console.log( 'duplikat',duplicate );
             this.$store.dispatch('duplicateInvoiceItem', duplicate );
         },
         searchForInvoice: _.debounce( function() {
-            //console.log("jelena");
             const searchMatch = this.getInvoicesNumbers.filter( i => i.number == this.search);
-            //console.log(searchMatch);
             if( searchMatch.length ){
                 this.matchExists = true;
                 this.matchedInvoice = searchMatch;
-                //console.log("jejejejejejejejeee");
             }else if( this.search == ''){
                 this.matchExists = false;
             }
-        },3000)
+        },2000)
       
     }
 };

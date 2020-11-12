@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <login></login>
-    Home page
   </div>
 </template>
 

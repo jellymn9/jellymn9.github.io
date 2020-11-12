@@ -11,6 +11,16 @@ export default new Vuex.Store({
       date: '20.10.2020',
       amount: 5
       }
+    ],
+    users: [
+      {
+        username: "Jelena",
+        password: "jelena"
+      },
+      {
+        username: "Dunja",
+        password: "dunja"
+      }
     ]
   },
   getters: {
@@ -28,6 +38,9 @@ export default new Vuex.Store({
     },
     DUPLICATE_INVOICE( state, invoiceItem ){
       state.invoices.push(invoiceItem);
+    },
+    NEW_USER( state, user){
+      state.users.push(user);
     }
   },
   actions: {
@@ -39,7 +52,10 @@ export default new Vuex.Store({
     },
     duplicateInvoiceItem({commit}, invoiceItem ){
       commit('DUPLICATE_INVOICE', invoiceItem );
-    }
+    },
+    addNewUser({commit}, user ){
+      commit('NEW_USER', user);
+    },
   },
   modules: {}
 });
