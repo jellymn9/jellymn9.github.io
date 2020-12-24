@@ -38,6 +38,7 @@
         Submit
       </v-btn>
     </v-card-actions>
+    <p style="color: blue;"> Number must be unique!</p>
   </v-card>
 </template>
 
