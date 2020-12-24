@@ -98,6 +98,8 @@ export default {
   height: 500px;
   background-color: blueviolet;
   margin-block: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .fields{
     margin-block: 10px;

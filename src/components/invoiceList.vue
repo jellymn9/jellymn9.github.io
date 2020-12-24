@@ -1,7 +1,7 @@
 <template>
   <div>
     <addInvoice></addInvoice>
-    <v-card class="mx-auto my-12 invoice-list" >
+    <v-card class="mx-auto my-12 invoice-list">
         <v-text-field
             label="Search"
             v-model="search"
@@ -15,6 +15,11 @@
             v-for="(invoice, i) in invoices"
             :key="i"
             >
+                <v-card v-if="deleteAlert" class="alertClass" outlined>
+                    <p>Are you sure you want to delete invoice?</p>
+                    <v-btn class="alertBtn" v-on:click="deleteInvoice(i)">Yes</v-btn>
+                    <v-btn v-on:click="deleteAlert = !deleteAlert" class="alertBtn"> No </v-btn>
+                </v-card>
                 <v-list-item-content>
                    number: {{ invoice.number }} description: {{ invoice.description }}
                     <div class="mx-2">
@@ -22,7 +27,7 @@
                             color="primary"
                             depressed
                             small
-                            @click="deleteInvoice(i)"
+                            v-on:click="deleteAlert = !deleteAlert"
                         >
                             <v-icon>
                             {{ icons.mdiDelete }}
@@ -67,6 +72,7 @@ export default {
         search: '',
         matchExists: false,
         matchedInvoice: [],
+        deleteAlert: false,
         icons: {
             mdiDelete,
         }
@@ -81,6 +87,7 @@ export default {
   methods: {
         deleteInvoice( invoiceItem ){
           this.$store.dispatch('deleteInvoiceItem', invoiceItem );
+          this.deleteAlert = !this.deleteAlert;
         },
         duplicateInvoice(i){
             this.duplicateId = this.invoices.length;
@@ -106,7 +113,26 @@ export default {
 </script>
 <style scoped>
     .invoice-list{
-        height: 400px;
+        height: 500px;
         width: 500px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .alertClass{
+        z-index: 500;
+        width: 400px;
+        height: 250px;
+        position: fixed;
+        bottom: 300px;
+        left:200px;
+        padding-left: 30px;
+        padding-top: 60px;
+        font-size: 20px;
+        box-shadow: 0px 0px 10px #FF0000, 0px 0px 10px #0000FF;
+    }
+    .alertBtn{
+        margin-left: 45px;
+        margin-top: 25px;
+        color: rgb(0, 0, 0);
     }
 </style>

@@ -15,17 +15,20 @@ export default new Vuex.Store({
     users: [
       {
         username: "Jelena",
-        password: "jelena"
+        password: "jelena",
+        isActive: false,
+        id: 1
       },
       {
         username: "Dunja",
-        password: "dunja"
+        password: "dunja",
+        isActive: false,
+        id: 2
       }
     ]
   },
   getters: {
     getInvoicesNumbers(state){
-      console.log(state.invoices);
       return state.invoices;
     }
   },
@@ -40,7 +43,15 @@ export default new Vuex.Store({
       state.invoices.push(invoiceItem);
     },
     NEW_USER( state, user){
+      const id = state.users.length +1;
+      user.id = id;
       state.users.push(user);
+    },
+    EDIT_USER_STATE( state, username1){
+      console.log(username1);
+      const indexOfUser = state.users.findIndex( u => u.username == username1);
+      console.log(indexOfUser);
+      state.users[indexOfUser].isActive = !state.users[indexOfUser].isActive;
     }
   },
   actions: {
@@ -56,6 +67,9 @@ export default new Vuex.Store({
     addNewUser({commit}, user ){
       commit('NEW_USER', user);
     },
+    editUserActivation({commit}, username1){
+      commit('EDIT_USER_STATE', username1);
+    }
   },
   modules: {}
 });
