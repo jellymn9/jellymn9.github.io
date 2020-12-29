@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     window.addEventListener('beforeunload', this.handler());
   }
   
