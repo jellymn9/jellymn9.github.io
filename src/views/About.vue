@@ -38,7 +38,8 @@ export default {
     },
     handler(){
       if( !this.getUserActivation ){
-        this.$router.replace({ name: "Home"});
+        //this.$router.replace({ name: "Home"});
+        this.$router.push('/');
       }
     }
   },
